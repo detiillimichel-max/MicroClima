@@ -1,0 +1,248 @@
+:root {
+  --bg-color: #18191c;
+  --card-bg: #24262b;
+  --card-hover: #2e3037;
+  --text-primary: #f1f3f5;
+  --text-secondary: #9da2a8;
+  --accent-blue: #7bb0ff;
+  --alert-orange-bg: #3e261d;
+  --alert-orange-border: #7a3c20;
+  --alert-orange-text: #ffaa80;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+}
+
+.brand-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* Current Weather Card */
+.current-card {
+  padding: 12px 4px;
+}
+
+.weather-header-now {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.temp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-temp {
+  font-size: 64px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.weather-status-box {
+  text-align: right;
+}
+
+.weather-status-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.weather-sensation {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Alert Banner */
+.alert-banner {
+  background-color: var(--alert-orange-bg);
+  border: 1px solid var(--alert-orange-border);
+  color: var(--alert-orange-text);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hourly Forecast (Scroll Horizontal) */
+.hourly-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.hourly-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 60px;
+  height: 110px;
+  padding: 8px 0;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.hourly-item .time {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.hourly-item .temp {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hourly-item .rain-prob {
+  font-size: 11px;
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+/* Dynamic Banner */
+.weather-banner {
+  background: linear-gradient(135deg, #2b3a4a 0%, #1e2631 100%);
+  border-radius: var(--radius-lg);
+  height: 130px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 8px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.banner-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 6px;
+}
+
+/* Insight Card */
+.insight-card {
+  background-color: var(--card-bg);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.insight-icon {
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+/* Daily Forecast */
+.daily-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.daily-card {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-width: 80px;
+  padding: 14px 10px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.daily-card.active {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--card-hover);
+}
+
+.daily-day {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.daily-temp {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.skeleton-loader {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
