@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MicroClima - Clima de Precisão</title>
+
+  <!-- PWA Metadata -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#18191c">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- Fonte Google (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Top Bar -->
+    <header class="app-header">
+      <h1 class="brand-title">MicroClima</h1>
+      <button class="icon-button" id="btn-refresh" aria-label="Atualizar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"/>
+          <circle cx="12" cy="5" r="1"/>
+          <circle cx="12" cy="19" r="1"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Bloco 1: Clima Atual -->
+    <section id="current-card" class="current-card">
+      <div class="skeleton-loader">Obtendo dados de localização...</div>
+    </section>
+
+    <!-- Bloco 2: Alerta Meteorológico -->
+    <div id="alert-banner" class="alert-banner hidden">
+      <!-- Injetado dinamicamente -->
+    </div>
+
+    <!-- Bloco 3: Previsão Hora a Hora -->
+    <section class="section-container">
+      <div id="hourly-forecast" class="hourly-scroll">
+        <!-- Injetado via JS -->
+      </div>
+    </section>
+
+    <!-- Bloco 4: Banner Ilustrativo / Status -->
+    <div id="weather-banner" class="weather-banner">
+      <div class="banner-content">
+        <span class="banner-tag">Radar Ativo</span>
+        <p class="banner-text">Monitoramento contínuo de alta precisão por coordenadas GPS.</p>
+      </div>
+    </div>
+
+    <!-- Bloco 5: Insight / Tendência -->
+    <div id="weather-insight" class="insight-card hidden">
+      <svg class="insight-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+        <polyline points="17 6 23 6 23 12"></polyline>
+      </svg>
+      <span id="insight-text">Calculando tendências...</span>
+    </div>
+
+    <!-- Bloco 6: Previsão Diária -->
+    <section class="section-container">
+      <div id="daily-forecast" class="daily-scroll">
+        <!-- Injetado via JS -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts Modulares -->
+  <script src="js/utils/formatters.js"></script>
+  <script src="js/utils/location.js"></script>
+  <script src="js/api/weatherService.js"></script>
+  <script src="js/components/currentCard.js"></script>
+  <script src="js/components/hourlyForecast.js"></script>
+  <script src="js/components/dailyForecast.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(err => console.log('Erro ao registrar SW:', err));
+    }
+  </script>
+</body>
+</html>
