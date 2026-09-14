@@ -1,6 +1,8 @@
 /* Controlador principal do MicroClima. */
 let selectedLocation = null;
 let selectedForecastDays = Number(localStorage.getItem('microclima:forecast-days')) || 7;
+let selectedDayIndex = 0;
+let lastWeatherData = null;
 
  document.addEventListener('DOMContentLoaded', () => {
   const saved = LocationService.getSavedLocation();
@@ -12,6 +14,7 @@ let selectedForecastDays = Number(localStorage.getItem('microclima:forecast-days
     daysSelect.value = String(selectedForecastDays);
     daysSelect.addEventListener('change', event => {
       selectedForecastDays = Number(event.target.value);
+      selectedDayIndex = 0;
       localStorage.setItem('microclima:forecast-days', String(selectedForecastDays));
       initApp(false);
     });
@@ -27,12 +30,35 @@ async function handleLocationChoice(choice) {
       latitude: choice.city.latitude, longitude: choice.city.longitude,
       cityName: choice.city.name, stateName: choice.city.state, source: 'city'
     };
+    selectedDayIndex = 0;
     LocationService.saveLocation(selectedLocation);
     await initApp(false);
   } else {
     selectedLocation = null;
+    selectedDayIndex = 0;
     await initApp(true, true);
   }
+}
+
+function renderSelectedDay() {
+  if (!lastWeatherData || !selectedLocation) return;
+
+  const dailyList = lastWeatherData.daily || [];
+  if (!dailyList.length) return;
+
+  selectedDayIndex = Math.min(Math.max(selectedDayIndex, 0), dailyList.length - 1);
+  const selectedDaily = selectedDayIndex === 0 ? null : dailyList[selectedDayIndex];
+  const selectedDate = dailyList[selectedDayIndex]?.date || null;
+  const localityName = selectedLocation.cityName && selectedLocation.stateName
+    ? `${selectedLocation.cityName}, ${selectedLocation.stateName}`
+    : selectedLocation.cityName;
+
+  CurrentCard.render('current-card', lastWeatherData.current, localityName, selectedDaily);
+  HourlyForecast.render('hourly-forecast', lastWeatherData.hourly, selectedDate);
+  DailyForecast.render('daily-forecast', dailyList, selectedDayIndex, index => {
+    selectedDayIndex = index;
+    renderSelectedDay();
+  });
 }
 
 async function initApp(forceRefresh = false, useGps = false) {
@@ -44,16 +70,14 @@ async function initApp(forceRefresh = false, useGps = false) {
     selectedLocation = location;
     LocationService.saveLocation(location);
 
-    const weatherData = await WeatherService.fetchWeatherData(location.latitude, location.longitude, selectedForecastDays, forceRefresh);
-    const localityName = location.cityName && location.stateName ? `${location.cityName}, ${location.stateName}` : location.cityName;
-    CurrentCard.render('current-card', weatherData.current, localityName);
-    HourlyForecast.render('hourly-forecast', weatherData.hourly);
-    DailyForecast.render('daily-forecast', weatherData.daily);
+    lastWeatherData = await WeatherService.fetchWeatherData(location.latitude, location.longitude, selectedForecastDays, forceRefresh);
+    selectedDayIndex = Math.min(selectedDayIndex, Math.max(lastWeatherData.daily.length - 1, 0));
+    renderSelectedDay();
 
     const alertBanner = document.getElementById('alert-banner');
     if (alertBanner) {
-      if (weatherData.alert) {
-        alertBanner.textContent = `⚠ ${weatherData.alert.text}`;
+      if (lastWeatherData.alert) {
+        alertBanner.textContent = `⚠ ${lastWeatherData.alert.text}`;
         alertBanner.classList.remove('hidden');
       } else {
         alertBanner.classList.add('hidden');
@@ -62,13 +86,14 @@ async function initApp(forceRefresh = false, useGps = false) {
 
     const insightCard = document.getElementById('weather-insight');
     const insightText = document.getElementById('insight-text');
-    if (insightCard && insightText && weatherData.daily.length > 1) {
-      const diff = Math.round(weatherData.daily[1].maxTemp - weatherData.daily[0].maxTemp);
+    if (insightCard && insightText && lastWeatherData.daily.length > 1) {
+      const diff = Math.round(lastWeatherData.daily[1].maxTemp - lastWeatherData.daily[0].maxTemp);
       insightText.textContent = diff >= 2 ? `Previsão de aumento na temperatura de +${diff}°C para amanhã.` : diff <= -2 ? `Previsão de queda na temperatura de ${diff}°C para amanhã.` : 'Temperaturas estáveis nos próximos dias.';
       insightCard.classList.remove('hidden');
     }
   } catch (error) {
     console.error('Erro ao carregar MicroClima:', error);
-    document.getElementById('current-card').innerHTML = '<p class="error-message">Não foi possível obter os dados meteorológicos. Tente novamente.</p>';
+    const currentCard = document.getElementById('current-card');
+    if (currentCard) currentCard.innerHTML = '<p class="error-message">Não foi possível obter os dados meteorológicos. Tente novamente.</p>';
   }
 }
