@@ -48,7 +48,7 @@ function renderSelectedDay() {
 
   selectedDayIndex = Math.min(Math.max(selectedDayIndex, 0), dailyList.length - 1);
   const selectedDaily = selectedDayIndex === 0 ? null : dailyList[selectedDayIndex];
-  const selectedDate = dailyList[selectedDayIndex]?.date || null;
+  const selectedDate = selectedDayIndex === 0 ? null : dailyList[selectedDayIndex].date;
   const localityName = selectedLocation.cityName && selectedLocation.stateName
     ? `${selectedLocation.cityName}, ${selectedLocation.stateName}`
     : selectedLocation.cityName;
