@@ -1,4 +1,4 @@
-const CACHE_NAME = 'microclima-v4';
+const CACHE_NAME = 'microclima-v5';
 
 const STATIC_ASSETS = [
   './', './index.html', './css/style.css', './manifest.json',
