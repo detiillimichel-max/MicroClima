@@ -23,15 +23,17 @@
             <path d="m20 20-4-4"></path>
           </svg>
         </button>
-        <button class="icon-button" id="btn-refresh" aria-label="Atualizar" title="Atualizar">↻</button>
+        <button class="icon-button" id="btn-refresh" aria-label="Atualizar previsão" title="Atualizar previsão">↻</button>
       </div>
     </header>
 
-    <section id="current-card" class="current-card">
+    <section id="current-card" class="current-card" aria-live="polite">
       <div class="skeleton-loader">Obtendo dados de localização...</div>
     </section>
 
-    <div id="alert-banner" class="alert-banner hidden"></div>
+    <p id="data-status" class="data-status" role="status" aria-live="polite">Obtendo previsão…</p>
+
+    <div id="alert-banner" class="alert-banner hidden" role="alert"></div>
 
     <section class="section-container">
       <div id="hourly-forecast" class="hourly-scroll"></div>
@@ -39,8 +41,8 @@
 
     <div id="weather-banner" class="weather-banner">
       <div class="banner-content">
-        <span class="banner-tag">Radar Ativo</span>
-        <p class="banner-text">Monitoramento contínuo de alta precisão por coordenadas GPS.</p>
+        <span class="banner-tag">Previsão por coordenadas</span>
+        <p class="banner-text">Dados meteorológicos atualizados para o local selecionado.</p>
       </div>
     </div>
 
@@ -65,7 +67,7 @@
     </section>
   </div>
 
-  <div id="location-picker" class="location-picker hidden" role="dialog" aria-modal="true" aria-labelledby="location-picker-title">
+  <div id="location-picker" class="location-picker hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="location-picker-title">
     <div class="location-panel">
       <div class="location-panel-header">
         <div>

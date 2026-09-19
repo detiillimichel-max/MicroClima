@@ -13,7 +13,11 @@ button { cursor: pointer; }
 .brand-title { font-size: 28px; font-weight: 600; color: var(--text-primary); }
 .header-actions { display: flex; gap: 4px; }
 .icon-button, .close-button { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 8px; font-size: 28px; line-height: 1; }
+.icon-button:disabled { cursor: wait; opacity: .55; }
+.icon-button.is-loading { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .current-card { padding: 12px 4px; }
+.data-status { color: var(--text-secondary); font-size: 12px; min-height: 16px; padding: 0 4px; }
 .weather-header-now { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
 .temp-row { display: flex; justify-content: space-between; align-items: center; }
 .main-temp { font-size: 64px; font-weight: 500; letter-spacing: -2px; line-height: 1; }

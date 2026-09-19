@@ -1,4 +1,4 @@
-const CACHE_NAME = 'microclima-v5';
+const CACHE_NAME = 'microclima-v6';
 
 const STATIC_ASSETS = [
   './', './index.html', './css/style.css', './manifest.json',
@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request).catch(() => new Response(
         JSON.stringify({ error: 'Sem conexão com a internet.' }),
-        { headers: { 'Content-Type': 'application/json' } }
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
       ))
     );
     return;

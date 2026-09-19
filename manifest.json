@@ -1,7 +1,8 @@
 {
-  "name": "MicroClima - Previsão de Precisão",
+  "id": "./",
+  "name": "MicroClima - Previsão meteorológica",
   "short_name": "MicroClima",
-  "description": "Previsão meteorológica hiperlocal de alta precisão",
+  "description": "Previsão meteorológica baseada em coordenadas",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#18191c",
@@ -10,13 +11,13 @@
   "scope": "./",
   "icons": [
     {
-      "src": "assets/icons/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
