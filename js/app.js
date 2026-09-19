@@ -57,7 +57,7 @@ function renderSelectedDay() {
 }
 
 function updateYoutubeWeatherLink(location) {
-  const link = document.getElementById('youtube-weather-link');
+  const link = document.getElementById('weather-banner');
   if (!link) return;
   const city = location?.cityName || 'sua cidade';
   const query = `previsão do tempo ${city}`;
