@@ -19,6 +19,7 @@ Aplicativo PWA de consulta meteorológica, desenvolvido com HTML, CSS e JavaScri
 - Previsão horária.
 - Previsão diária configurável para 3, 5 ou 7 dias.
 - Indicador de tendência de temperatura.
+- Painel com sensação térmica, umidade, chuva, vento e chance de chuva por dia.
 - Aviso meteorológico básico para códigos de trovoada/tempo severo retornados pela API.
 - PWA com manifest e Service Worker.
 

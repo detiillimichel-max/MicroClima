@@ -20,6 +20,7 @@ const DailyForecast = {
           <span class="daily-day">${dayLabel}</span>
           <span class="daily-icon">${info.icon}</span>
           <span class="daily-temp">${WeatherFormatters.formatTemp(item.maxTemp)}/${WeatherFormatters.formatTemp(item.minTemp)}</span>
+          <span class="daily-rain">☔ ${WeatherFormatters.formatPercent(item.rainProbMax)}</span>
         </button>
       `;
     }).join('');
