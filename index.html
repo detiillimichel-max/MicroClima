@@ -78,10 +78,12 @@
       </div>
       <button class="gps-option" id="use-my-location"><span>⌖</span><span><strong>Usar minha localização</strong><small>Identificar a cidade pelo GPS do celular</small></span></button>
       <input id="city-search" class="city-search" type="search" placeholder="Pesquisar cidade..." autocomplete="off">
-      <div class="city-tabs" role="tablist">
-        <button class="city-tab active" data-city-filter="sp">São Paulo</button>
-        <button class="city-tab" data-city-filter="capital">Capitais</button>
-        <button class="city-tab" data-city-filter="search">Buscar</button>
+      <div class="city-tabs" role="tablist" aria-label="Listas de cidades">
+        <button class="city-tab active" type="button" data-city-filter="sp">São Paulo</button>
+        <button class="city-tab" type="button" data-city-filter="capital">Capitais</button>
+        <button class="city-tab" type="button" data-city-filter="favorites">★ Favoritos</button>
+        <button class="city-tab" type="button" data-city-filter="recent">Recentes</button>
+        <button class="city-tab" type="button" data-city-filter="search">Buscar</button>
       </div>
       <div id="city-results" class="city-results"></div>
     </div>

@@ -12,6 +12,8 @@ Aplicativo PWA de consulta meteorológica, desenvolvido com HTML, CSS e JavaScri
 - Catálogo das capitais dos estados e Brasília.
 - Pesquisa de cidades por nome ou sigla do estado.
 - Persistência da última cidade válida no armazenamento local.
+- Cidades favoritas com acesso rápido pelo seletor.
+- Histórico das últimas cidades consultadas.
 - Cache forte de dados meteorológicos por 6 horas para reduzir chamadas à API.
 - Atualização manual pelo botão do cabeçalho.
 - Previsão horária.
