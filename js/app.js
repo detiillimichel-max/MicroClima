@@ -56,6 +56,15 @@ function renderSelectedDay() {
   DailyForecast.render('daily-forecast', dailyList, selectedDayIndex, selectForecastDay);
 }
 
+function updateYoutubeWeatherLink(location) {
+  const link = document.getElementById('youtube-weather-link');
+  if (!link) return;
+  const city = location?.cityName || 'sua cidade';
+  const query = `previsão do tempo ${city}`;
+  link.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+  link.setAttribute('aria-label', `Ver vídeos no YouTube sobre o clima de ${city}`);
+}
+
 function setLoading(isLoading) {
   const button = document.getElementById('btn-refresh');
   if (button) {
@@ -78,6 +87,7 @@ async function initApp(forceRefresh = false, useGps = false) {
     if (requestId !== activeRequestId) return;
     selectedLocation = location;
     LocationService.saveLocation(location);
+    updateYoutubeWeatherLink(location);
     lastWeatherData = await WeatherService.fetchWeatherData(location.latitude, location.longitude, selectedForecastDays, forceRefresh, currentAbortController.signal);
     if (requestId !== activeRequestId) return;
     selectedDayIndex = Math.min(selectedDayIndex, Math.max(lastWeatherData.daily.length - 1, 0));
